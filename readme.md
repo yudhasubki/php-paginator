@@ -27,14 +27,12 @@ $totalPage = ceil($result->num_rows) / 12;
   * @var int | Total Page
   * @var string | base url
   * @var string | current Page
-  * @var array | Optional in URL Query
-  * @var int | set how many need previous current number ex : current number 5 - 3, will be shown 2,3,4,5. default is 2
-  * @var int | set how many need after current number ex : current number 5 - 4, will be shown 5,6,7,8,9. defualt is 2
+  * @var array | Optional in URL Query. this used to build query in pagination list anchor link, ex : www.baseurl.com?page=2&order=asc
+  * @var int | set how many need previous current number. ex : current number 5 - 3, will be shown 2,3,4,5. default is 2
+  * @var int | set how many need after current number. ex : current number 5 - 4, will be shown 5,6,7,8,9. defualt is 2
  */
 $paginator = new Paginator($totalPage, 'www.baseurl.com', '2', ['page'=>'2', 'order'=>'asc'], 3 , 4);
 echo $paginator->render();
-
-result would be 
 
 // string : <li class="page-item "><a class="page-link" href="www.baseurl.com?page=1&order=asc">Previous</a></li><li class="page-item "><a class="page-link" href="www.baseurl.com?page=1&order=asc">1</a></li><li class="page-item active disabled"><a class="page-link" href="www.baseurl.com?page=2&order=asc">2</a></li><li class="page-item "><a class="page-link" href="www.baseurl.com?page=3&order=asc">3</a></li><li class="page-item "><a class="page-link" href="www.baseurl.com?page=4&order=asc">4</a></li><li class="page-item "><a class="page-link" href="www.baseurl.com?page=3&order=asc">Next</a></li>
 
