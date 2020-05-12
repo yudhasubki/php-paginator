@@ -26,24 +26,18 @@ echo $totalPage;
   * @var string | base url
   * @var string | current Page
   * @var array | Optional in URL Query
+  * @var int | set how many need previous current number ex : current number 5 - 3, will be shown 2,3,4,5. default is 2
+  * @var int | set how many need after current number ex : current number 5 - 4, will be shown 5,6,7,8,9. default is 2
  */
-$paginator = new Paginator($totalPage, 'www.baseurl.com', '2', ['page'=>'2', 'order'=>'asc']);
-print_r($paginator->render());
+$paginator = new Paginator($totalPage, 'www.baseurl.com', '2', ['page'=>'2', 'order'=>'asc'], 3 , 4);
+echo $paginator->render();
 
 /**
  * Example with Custom List of Template 
  * Set Custom Template with Chaining Method
  */
 $paginator = new Paginator($totalPage, 'www.baseurl.com', '2', ['page'=>'2', 'order'=>'asc']);
-print_r($paginator->setCustomTemplate('<li class="page-item some-new-class new-class %s"><a class="page-link" href="%s">%s</a></li>')->render());
+echo $paginator->setCustomTemplate('<li class="page-item some-new-class new-class %s"><a class="page-link" href="%s">%s</a></li>')->render();
 
 
-// (
-//     [0] => <li class="page-item some-new-class new-class "><a class="page-link" href="www.baseurl.com?page=1&order=asc">Previous</a></li>
-//     [1] => <li class="page-item some-new-class new-class "><a class="page-link" href="www.baseurl.com?page=1&order=asc">1</a></li>
-//     [2] => <li class="page-item some-new-class new-class active disabled"><a class="page-link" href="www.baseurl.com?page=2&order=asc">2</a></li>
-//     [3] => <li class="page-item some-new-class new-class "><a class="page-link" href="www.baseurl.com?page=3&order=asc">3</a></li>
-//     [4] => <li class="page-item some-new-class new-class "><a class="page-link" href="www.baseurl.com?page=4&order=asc">4</a></li>
-//     [5] => <li class="page-item some-new-class new-class "><a class="page-link" href="www.baseurl.com?page=3&order=asc">Next</a></li>
-// )
 

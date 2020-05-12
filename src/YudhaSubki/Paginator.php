@@ -197,7 +197,7 @@ class Paginator
      * 
      * @return array
      */
-    public function render() : array
+    public function render() : string
     {
         if($this->currentPage - 1 >= 1) {
             $this->numberPrevious = $this->currentPage > 2 ? 
@@ -213,7 +213,7 @@ class Paginator
         $prevTemplate    = $this->previous($this->numberPrevious);
         $nextTemplate    = $this->next($this->numberNext);
         $currentTemplate = $this->current();
-        return $this->generate($prevTemplate, $currentTemplate, $nextTemplate);
+        return implode("", $this->generate($prevTemplate, $currentTemplate, $nextTemplate));
     }
 
     /**
