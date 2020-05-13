@@ -169,9 +169,11 @@ class Paginator
      * 
      * @return array
      */
-    public function current() : string
+    public function current() : array
     {
-        return $this->numberTemplate($this->currentPage, true);
+        return [
+            $this->numberTemplate($this->currentPage, true)
+        ];
     }
 
     /**
@@ -213,7 +215,7 @@ class Paginator
         $prevTemplate    = $this->previous($this->numberPrevious);
         $nextTemplate    = $this->next($this->numberNext);
         $currentTemplate = $this->current();
-        return implode("", $this->generate($prevTemplate, $currentTemplate, $nextTemplate));
+        return $this->generate($prevTemplate,$currentTemplate,$nextTemplate);
     }
 
     /**
@@ -222,22 +224,8 @@ class Paginator
      * @param array|variadic
      * @return array
      */
-    public function generate(...$templates) : array
+    public function generate(...$templates) : string
     {
-        $html = [];
-        foreach($templates as $template)
-        {
-            if(is_array($template)){
-                if(count($template) > 0) {
-                    foreach($template as $t){
-                        $html[] = $t;
-                    }
-                }
-                continue;
-            }
-            $html[] = $template;
-        }
-
-        return $html;
+        return implode("", array_merge(...$templates));
     }
 }
