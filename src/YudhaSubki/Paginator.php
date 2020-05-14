@@ -164,6 +164,36 @@ class Paginator
         return $templates;
     }
 
+    public function make($lastPage)
+    {
+        $templates[] = $this->numberTemplate($this->numberPrevious, $this->currentPage == 1 ? true : false, 'Previous');
+        $startedPage = $this->numberPrevious >= $this->prevLength ? $this->currentPage - $this->prevLength : 1 ;
+
+        while($startedPage <= $lastPage)
+        {
+            if($startedPage < $this->currentPage) 
+            {
+                $templates[] = $this->numberTemplate($startedPage, false);    
+            }
+
+            if($startedPage == $this->currentPage)
+            {
+                $templates[] = $this->numberTemplate($this->currentPage, true);
+            }
+
+            if($startedPage > $this->currentPage)
+            {
+                $templates[] = $this->numberTemplate($startedPage, false);
+            }
+            $startedPage++;
+        }
+
+        $nextPage = $this->currentPage + 1;
+        $templates[] = $this->numberTemplate($nextPage, $nextPage <= $startedPage ? false : true, 'Next');
+
+        return $this->generate($templates);
+    }
+
     /**
      * Genarate current number pagination 
      * 
@@ -211,11 +241,8 @@ class Paginator
                 $this->currentPage + $this->nextLength : 
                 ($this->totalPage - $this->currentPage) + $this->currentPage;
         }
-    
-        $prevTemplate    = $this->previous($this->numberPrevious);
-        $nextTemplate    = $this->next($this->numberNext);
-        $currentTemplate = $this->current();
-        return $this->generate($prevTemplate,$currentTemplate,$nextTemplate);
+
+        return $this->make($this->numberNext);
     }
 
     /**
